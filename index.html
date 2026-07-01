@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Oracle's Die · Cast for an Ancient Greek Writer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Astragalos · Sortition</div>
+    <h1>The Oracle's <em>Die</em></h1>
+    <p class="sub">Cast the die and let chance name a writer of antiquity.</p>
+  </header>
+
+  <div class="stage">
+    <div class="die" id="die">
+      <div class="face f1"><span class="pip c"></span></div>
+      <div class="face f2"><span class="pip a"></span><span class="pip e"></span></div>
+      <div class="face f3"><span class="pip a"></span><span class="pip c"></span><span class="pip e"></span></div>
+      <div class="face f4"><span class="pip a"></span><span class="pip b"></span><span class="pip d"></span><span class="pip e"></span></div>
+      <div class="face f5"><span class="pip a"></span><span class="pip b"></span><span class="pip c"></span><span class="pip d"></span><span class="pip e"></span></div>
+      <div class="face f6"><span class="pip a"></span><span class="pip b"></span><span class="pip f"></span><span class="pip g"></span><span class="pip d"></span><span class="pip e"></span></div>
+    </div>
+  </div>
+
+  <button class="roll" id="rollBtn">Cast the Die</button>
+  <p class="hint" id="hint">86 writers await. Cast once to be sent to one of them.</p>
+
+<script src="authors.js"></script>
+<script>
+const REST={
+  1:"rotateX(-20deg) rotateY(24deg)",2:"rotateX(-20deg) rotateY(-66deg)",
+  3:"rotateX(-110deg) rotateY(24deg)",4:"rotateX(70deg) rotateY(24deg)",
+  5:"rotateX(-20deg) rotateY(114deg)",6:"rotateX(-20deg) rotateY(204deg)"
+};
+const die=document.getElementById('die'),btn=document.getElementById('rollBtn'),hint=document.getElementById('hint');
+let rolling=false;
+btn.addEventListener('click',()=>{
+  if(rolling)return;rolling=true;btn.disabled=true;hint.textContent="The die is cast…";
+  const pip=Math.floor(Math.random()*6)+1;
+  const idx=Math.floor(Math.random()*AUTHORS.length);
+  die.classList.add('rolling');die.style.transform="";
+  setTimeout(()=>{
+    die.classList.remove('rolling');die.style.transform=REST[pip];
+    setTimeout(()=>{location.href="result.html?i="+idx+"&d="+pip;},650);
+  },1350);
+});
+</script>
+</body>
+</html>

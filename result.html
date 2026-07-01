@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Oracle Speaks · A Writer of Antiquity</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="result-page">
+  <main class="stele show" id="stele">
+    <div class="stele-inner">
+      <div class="roll-tag" id="rollTag"></div>
+      <h1 class="author-name" id="authorName">—</h1>
+      <div class="era" id="era"></div>
+      <div class="rule"></div>
+      <div class="works">
+        <div class="work-label">Representative work</div>
+        <div class="work-title" id="work"></div>
+      </div>
+      <div class="fields" id="fields"></div>
+    </div>
+  </main>
+
+  <a class="roll again" id="again" href="index.html">Cast Again</a>
+  <a class="wiki-link" id="wiki" href="https://en.wikipedia.org/wiki/List_of_ancient_Greek_writers" target="_blank" rel="noopener">Read more on Wikipedia →</a>
+
+<script src="authors.js"></script>
+<script>
+const p=new URLSearchParams(location.search);
+const i=parseInt(p.get('i'),10), d=parseInt(p.get('d'),10);
+const a=(!isNaN(i)&&AUTHORS[i])?AUTHORS[i]:AUTHORS[Math.floor(Math.random()*AUTHORS.length)];
+
+document.getElementById('rollTag').textContent = (d>=1&&d<=6) ? ("The die showed "+d) : "The die is cast";
+document.getElementById('authorName').textContent=a.name;
+document.getElementById('era').textContent=a.era;
+document.getElementById('work').textContent=a.work;
+const fe=document.getElementById('fields');
+a.fields.forEach(f=>{const c=document.createElement('span');c.className='chip';c.textContent=f;fe.appendChild(c);});
+document.getElementById('wiki').href="https://en.wikipedia.org/wiki/"+encodeURIComponent(a.name.replace(/ /g,'_'));
+</script>
+</body>
+</html>
